@@ -1,20 +1,18 @@
 import socket
-import sys
-import time
-import logging
 import threading
+
 
 class Server():
     def __init__(self, ip, port):
         self.SERVER_IP = ip  # IP server
         self.SERVER_PORT = port  # Port server
-        self.server_commands = ["/?","/help","/serverstatus"]  # Server commands
+        self.server_commands = ["/?", "/help", "/serverstatus"]  # commands
         self.connected_clients = {}  # Object socket connections
-    
+
     def handleConnection(self, socket, address):
         print(f"Client connected: {address}")
         ip = address[0]
-        print(ip)
+        self.connected_clients[(ip, address[1])] = socket
 
     def startServer(self):
         """Function which instantiate the server and accept connections"""
@@ -22,7 +20,7 @@ class Server():
         s.bind((self.SERVER_IP, self.SERVER_PORT))
         print(f"Server listening on {self.SERVER_IP}:{self.SERVER_PORT}")
         s.listen()
-    
+
         try:
             while True:
                 client_socket, address = s.accept()
@@ -32,14 +30,9 @@ class Server():
 
         except Exception as Err:
             print(f"An error occurred: {Err}")
-        
+
         except KeyboardInterrupt:
-            print(f"The server was forced to shutdown")
+            print("The server was forced to shutdown")
 
         finally:
             s.close()
-
-
-teste = Server("localhost", 1337)
-teste.startServer()
-            
