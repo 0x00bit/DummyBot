@@ -3,7 +3,7 @@ import requests
 
 class Bot():
     def __init__(self):
-        self.TOKEN = "7824735225:AAF5roe_pl9NdIx0IRnN8-jp9GdiBKCHCOU"
+        self.TOKEN = ""
         URL_BASE = f"https://api.telegram.org/bot{self.TOKEN}"
         self.getUpdateURL = f"{URL_BASE}/getUpdates"
         self.sendMessageURL = f"{URL_BASE}/sendMessage"
